@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EsitDialogController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditDialogController">
    <left>
       <VBox prefHeight="110.0" prefWidth="75.0" BorderPane.alignment="CENTER">
          <children>
@@ -49,12 +49,12 @@
    <right>
       <VBox prefHeight="130.0" prefWidth="74.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnOk" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="ОК">
+            <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="ОК">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="Отмена">
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#actionClose" text="Отмена">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

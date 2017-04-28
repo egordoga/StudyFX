@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +11,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.Base;
+import main.CollectionAddressBook;
 import main.Person;
 
 
 import java.io.IOException;
-import java.io.PipedInputStream;
 
 public class MainController {
+
+    private CollectionAddressBook addressBookImpl = new CollectionAddressBook();
 
     @FXML
     private Button btnAdd;
@@ -38,24 +40,47 @@ public class MainController {
     @FXML
     private TableColumn<Person, String> columnPhone;
 
-    Base base = new Base();
+    private Parent fxmlEdit;
+    private FXMLLoader fxmlLoader = new FXMLLoader();
+    private EditDialogController editDialogController;
+    private Stage editDialogStage;
+
+    CollectionAddressBook collectionAddressBook = new CollectionAddressBook();
 
 
 
     @FXML
     private void initialize(){
+
+        //tblAdress.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         columnName.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, String>("phone"));
 
-        base.initBase();
+        addressBookImpl.getPersonList().addListener(new ListChangeListener<Person>() {
+            @Override
+            public void onChanged(Change<? extends Person> c) {
+                updateCountLable();
+            }
+        });
 
-        tblAdress.setItems(base.getList());
 
-        updateCountLable();
+        addressBookImpl.initBase();
+
+        tblAdress.setItems(addressBookImpl.getPersonList());
+
+        //updateCountLable();
+        try {
+            fxmlLoader.setLocation(getClass().getResource("../fxml/edit.fxml"));
+            fxmlEdit = fxmlLoader.load();
+            editDialogController = fxmlLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateCountLable(){
-        lblCount.setText("Количество записей: " + base.getList().size());
+        lblCount.setText("Количество записей: " + addressBookImpl.getPersonList().size());
     }
 
 
