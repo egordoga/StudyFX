@@ -33,6 +33,8 @@ public class EditDialogController {
         txtPhone.setText(person.getPhone());
     }
 
+    public Person getPerson(){return person;}
+
 
     public void actionClose(ActionEvent actionEvent) {
 
